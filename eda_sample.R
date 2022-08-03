@@ -78,3 +78,18 @@ df <- conditions_chronic %>%
 
 snmed <- read_tsv("SNOMED_ICD/snmd-icd.tsv")
 
+## See if the  code in conditions table matches with the code in snmed
+## Do a join and see if the names match
+
+conditions_check <- conditions %>% select(CODE, DESCRIPTION)
+
+snmed_ICD <- snmed %>% mutate(CODE = referencedComponentId) %>%
+    select(CODE, referencedComponentId, referencedComponentName, mapTarget, mapTargetName)
+
+## with a few exceptions things seem to match up
+
+conditions_ICD <- conditions %>%
+     left_join(snmed_ICD,  by = "CODE")
+
+
+
