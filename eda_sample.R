@@ -76,7 +76,7 @@ df <- conditions_chronic %>%
 
 ### Look at the SNOMED to ICD 10 .tsv file from https://www.nlm.nih.gov/healthit/snomedct/us_edition.html
 
-snmed <- read_tsv("SNOMED_ICD/snmd-icd.tsv")
+snmed <- read_tsv("mappings/snmd-icd.tsv")
 
 ## See if the  code in conditions table matches with the code in snmed
 ## Do a join and see if the names match
@@ -90,6 +90,5 @@ snmed_ICD <- snmed %>% mutate(CODE = referencedComponentId) %>%
 
 conditions_ICD <- conditions %>%
      left_join(snmed_ICD,  by = "CODE")
-
 
 
